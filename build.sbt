@@ -1,5 +1,6 @@
 import ReleaseTransformations._
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+import org.scalajs.jsenv.nodejs.NodeJSEnv
 
 def ScalaCheck = Def.setting("org.scalacheck" %%% "scalacheck" % "1.14.3")
 def ScalaProps = Def.setting("com.github.scalaprops" %%% "scalaprops" % "0.8.0")
@@ -103,7 +104,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     Global / scalaJSStage := FastOptStage,
     parallelExecution := false,
     coverageEnabled := false,
-    jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv())
+    jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--dns-result-order=ipv4first"))))
 
 lazy val coreJVM = core.jvm
 lazy val coreJS = core.js
@@ -120,7 +121,7 @@ lazy val check = crossProject(JSPlatform, JVMPlatform)
     Global / scalaJSStage := FastOptStage,
     parallelExecution := false,
     coverageEnabled := false,
-    jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv())
+    jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--dns-result-order=ipv4first"))))
 
 lazy val checkJVM = check.jvm
 lazy val checkJS = check.js
@@ -141,7 +142,7 @@ lazy val props = crossProject(JSPlatform, JVMPlatform)
   .jsSettings(
     Global / scalaJSStage := FastOptStage,
     coverageEnabled := false,
-    jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv())
+    jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--dns-result-order=ipv4first"))))
 
 lazy val propsJVM = props.jvm
 lazy val propsJS = props.js
@@ -159,7 +160,7 @@ lazy val tests = crossProject(JSPlatform, JVMPlatform)
     Global / scalaJSStage := FastOptStage,
     parallelExecution := false,
     coverageEnabled := false,
-    jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv())
+    jsEnv := new NodeJSEnv(NodeJSEnv.Config().withArgs(List("--dns-result-order=ipv4first"))))
 
 lazy val testsJVM = tests.jvm
 lazy val testsJS = tests.js
